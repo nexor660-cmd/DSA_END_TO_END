@@ -1,0 +1,48 @@
+name: Build in Public Automation
+
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  build-in-public:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Need history for git log
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install google-generativeai
+
+      - name: Generate Content & Update README
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python generate_content.py
+
+      - name: Commit and Push README
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          # Only commit if there are changes
+          git diff --quiet && git diff --staged --quiet || (git commit -m "docs: auto-update README with latest progress" && git push)
+
+      - name: Create GitHub Issue with Social Drafts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "📢 Social Media Drafts for Latest Push" \
+            --body-file draft.md \
+            --label "build-in-public"
