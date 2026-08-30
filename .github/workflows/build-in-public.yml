@@ -1,0 +1,78 @@
+name: Build in Public — Auto README + Social Drafts
+
+# Runs on every push to main. It NEVER posts anywhere by itself —
+# it only updates README.md and opens a GitHub Issue containing the
+# drafted LinkedIn + X posts for you to review and publish manually.
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "README.md"
+      - ".buildinpublic/**"
+      - ".github/workflows/build-in-public.yml"
+  workflow_dispatch: {}   # lets you trigger it manually from the Actions tab too
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: build-in-public-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Generate README update + social drafts
+        id: gen
+        env:
+          # Optional. If unset, the script falls back to a template-based
+          # (no-API-cost) draft instead of an LLM-generated one.
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          REPO: ${{ github.repository }}
+          ACTOR: ${{ github.actor }}
+        run: |
+          python scripts/generate_content.py
+          echo "has_updates=$(cat .buildinpublic/has_updates.flag 2>/dev/null || echo false)" >> "$GITHUB_OUTPUT"
+
+      - name: Commit README + state changes
+        if: steps.gen.outputs.has_updates == 'true'
+        run: |
+          git config user.name "build-in-public-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add README.md .buildinpublic/
+          git diff --cached --quiet || git commit -m "chore: auto-update README + build-in-public log [skip ci]"
+          git push
+
+      - name: Ensure labels exist
+        if: steps.gen.outputs.has_updates == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create "build-in-public" --color "0E8A16" --force
+          gh label create "needs-review" --color "FBCA04" --force
+
+      - name: Open review issue with drafts
+        if: steps.gen.outputs.has_updates == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "$(cat .buildinpublic/issue_title.txt)" \
+            --body-file .buildinpublic/issue_body.md \
+            --label "build-in-public,needs-review"
