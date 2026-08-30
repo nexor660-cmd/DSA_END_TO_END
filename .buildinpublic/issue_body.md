@@ -4,20 +4,18 @@ These drafts were auto-generated from your latest commits. Nothing has been
 posted anywhere — copy whichever you like into LinkedIn / X yourself.
 
 ### Commits covered
-- `97485c6` chore: remove unused files
-- `1386303` chore: remove generate_content.py
-- `31bd390` auto yml setup for autogerate post trial basics
-- `e26d963` first commit
+- `7c25bcb` chore: add missing requirements.txt
+- `3e408c2` chore: set up build-in-public automation
 
 ---
 
 ### 📎 LinkedIn draft
 
 ```
-Small update from the your-repo build log.
+Small update from the DSA_END_TO_END build log.
 
-This round: chore: remove unused files.
-Also in the mix: chore: remove generate_content.py, auto yml setup for autogerate post trial basics, first commit.
+This round: chore: add missing requirements.txt.
+Also in the mix: chore: set up build-in-public automation.
 
 Building this in the open — mistakes, detours, and all.
 
@@ -29,13 +27,13 @@ What would you want to see next?
 ### 🐦 X / Twitter draft
 
 ```
-Shipped: chore: remove unused files — building this one in public. 🛠️
+Shipped: chore: add missing requirements.txt — building this one in public. 🛠️
 ```
 
 ### 📄 README changelog line added
 
 ```
-Shipped: chore: remove unused files (+3 more changes)
+Shipped: chore: add missing requirements.txt (+1 more changes)
 ```
 
 ---
