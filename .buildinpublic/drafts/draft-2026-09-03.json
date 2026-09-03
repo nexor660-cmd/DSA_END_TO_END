@@ -1,0 +1,5 @@
+{
+  "readme_summary": "Shipped: Fix VS Code tasks.json for input.txt and output.txt (+2 more changes)",
+  "linkedin_post": "Small update from the DSA_END_TO_END build log.\n\nThis round: Fix VS Code tasks.json for input.txt and output.txt.\nAlso in the mix: Fix tasks.json for Python input/output redirection, chore: auto-update README + build-in-public log [skip ci].\n\nBuilding this in the open \u2014 mistakes, detours, and all.\n\nWhat would you want to see next?\n\n#buildinpublic #indiehackers #softwaredevelopment",
+  "twitter_post": "Shipped: Fix VS Code tasks.json for input.txt and output.txt \u2014 building this one in public. \ud83d\udee0\ufe0f"
+}

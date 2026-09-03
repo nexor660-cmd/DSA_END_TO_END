@@ -4,8 +4,9 @@ These drafts were auto-generated from your latest commits. Nothing has been
 posted anywhere — copy whichever you like into LinkedIn / X yourself.
 
 ### Commits covered
-- `7c25bcb` chore: add missing requirements.txt
-- `3e408c2` chore: set up build-in-public automation
+- `700c0e9` Fix VS Code tasks.json for input.txt and output.txt
+- `4186796` Fix tasks.json for Python input/output redirection
+- `1af18ae` chore: auto-update README + build-in-public log [skip ci]
 
 ---
 
@@ -14,8 +15,8 @@ posted anywhere — copy whichever you like into LinkedIn / X yourself.
 ```
 Small update from the DSA_END_TO_END build log.
 
-This round: chore: add missing requirements.txt.
-Also in the mix: chore: set up build-in-public automation.
+This round: Fix VS Code tasks.json for input.txt and output.txt.
+Also in the mix: Fix tasks.json for Python input/output redirection, chore: auto-update README + build-in-public log [skip ci].
 
 Building this in the open — mistakes, detours, and all.
 
@@ -27,13 +28,13 @@ What would you want to see next?
 ### 🐦 X / Twitter draft
 
 ```
-Shipped: chore: add missing requirements.txt — building this one in public. 🛠️
+Shipped: Fix VS Code tasks.json for input.txt and output.txt — building this one in public. 🛠️
 ```
 
 ### 📄 README changelog line added
 
 ```
-Shipped: chore: add missing requirements.txt (+1 more changes)
+Shipped: Fix VS Code tasks.json for input.txt and output.txt (+2 more changes)
 ```
 
 ---
